@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header class="mx-auto py-5 flex flex-row px-8  border-b-2 dark:bg-gray-900">
+        <div class="header w-11/12">
+        </div>
+        <div class="menu w-1/12 flex flex-row items-center ml-4">
+            <button id="categoriesBtn">
+                <p class="text-white">Categories</p>
+                <ul class="List absolute bg-white hidden px-4 py-3 right-10 rounded-md">
+                    <li><a href="Men's.html">Men</a></li>
+                    <li><a href="Women's.html">Women</a></li>
+                    <li><a href="Electronics.html">Electronics</a></li>
+                    <li><a href="Jewelry.html">Jewelry</a></li>
+                </ul>
+            </button>
+        </div>
+    </header>
+
+    <section>
+        <div class="grid grid-cols-2 pt-10">
+            <h1 class="text-center text-3xl font-bold w-full">Women's products</h1>
+            <input type="search" placeholder="Search for a product" class="border rounded-full border-gray-600 py-1 px-5 w-2/3">
+        </div>
+        <div  class="product-container grid grid-cols-4 mb-48 mt-16 w-11/12 mx-auto gap-4"></div>
+    </section>
+    <footer class="footer mb-10 mt-36"></footer>
+
+
+    <script type="module">
+        import axios from "./node_modules/axios/dist/esm/axios.min.js"
+        import Header from './components/Header.js'
+        import slides from './resources/slides.js'
+        import Slider from './components/Slider.js'
+        import products from './components/products.js'
+        import Categories from './components/Categories.js'
+        import productsCategory from './components/productsCategory.js'
+        import productsSearch from './components/productsSearch.js'
+        import Footer from './components/Footer.js'
+
+        document.querySelector('.header').innerHTML = Header()
+
+        const categoriesBtn = document.querySelector("#categoriesBtn")
+        const List = document.querySelector('.List')
+
+        Categories({
+            categoriesBtn: categoriesBtn,
+            List: List
+        })
+
+
+        document.querySelector('.footer').innerHTML = Footer()
+
+        productsCategory({
+            url: 'https://fakestoreapi.com/products',
+            container: document.querySelector('.product-container'),
+            number_of_products: 20,
+            category: "women's clothing"
+        })
+
+        const search = document.querySelector('input[type="search"]')
+
+        search.addEventListener('keyup', event =>{
+            const title = event.target.value
+            if(event.keyCode == 13){
+                productsSearch({
+                    container: document.querySelector('.product-container'),
+                    url: `https://fakestoreapi.com/products`,
+                    number_of_products: 20,
+                    title: title,
+                    category: "women's clothing"
+                })
+            }
+        })
+
+
+
+    </script>
+    
+</body>
+</html>

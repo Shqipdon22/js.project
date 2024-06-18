@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyShop</title>
+    <link rel="stylesheet" href="/assets/css/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <header class="mx-auto py-5 flex flex-row px-8 border-b-2 dark:bg-gray-900">
+        <div class="header w-11/12">
+        </div>
+        <div class="menu w-1/12 flex flex-row items-center ml-4">
+            <button id="categoriesBtn">
+                <p class = "text-white">Categories</p>
+                <ul class="List absolute bg-white hidden px-4 py-3 right-10 rounded-md">
+                    <li><a href="Men's.html" class="">Men</a></li>
+                    <li><a href="Women's.html" class="">Women</a></li>
+                    <li><a href="Electronics.html" class="">Electronics</a></li>
+                    <li><a href="Jewelry.html" class="">Jewelry</a></li>
+                </ul>
+            </button>
+        </div>
+    </header>
+
+
+
+    <section>
+        <div class="slider"></div>
+        <div class="py-1.5 px-2.5 rounded-full bg-slate-900 flex justify-center gap-1.5 absolute" style="top: 408px; left: 48%;">
+            <button id="btnleft"><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i></button>
+            <button id="btnright"><i class="fa-solid fa-arrow-right" style="color: #ffffff;"></i></i></button>
+        </div>
+    </section>
+    <section>
+        <div class="text-center text-3xl pt-14 font-bold">Products we offer</div>
+        <div  class="product-container grid grid-cols-4 mb-48 mt-16 w-11/12 mx-auto gap-4"></div>
+    </section>
+    <footer class="footer mb-10 mt-36 "></footer>
+
+
+    <script type="module">
+        import axios from "./node_modules/axios/dist/esm/axios.min.js"
+        import Header from './components/Header.js'
+        import slides from './resources/slides.js'
+        import Slider from './components/Slider.js'
+        import products from './components/products.js'
+        import Categories from './components/Categories.js'
+        import Footer from './components/Footer.js'
+
+        document.querySelector('.header').innerHTML = Header()
+
+        const categoriesBtn = document.querySelector("#categoriesBtn")
+        const List = document.querySelector('.List')
+
+        Categories({
+            categoriesBtn: categoriesBtn,
+            List: List
+        })
+
+       
+
+
+        document.querySelector('.footer').innerHTML = Footer()
+
+        let slider = document.querySelector('.slider')
+        slider.innerHTML = `<img src = "${slides[0]}" alt = "Slides"> `
+        
+
+        let btnRight =  document.getElementById('btnright')
+        let btnLeft =  document.getElementById('btnleft')
+        let index = 0
+
+        console.log(slides)
+
+        Slider({
+            container: slider,
+            slides: slides,
+            index: index,
+            btnRight: btnRight,
+            btnLeft: btnLeft
+        })
+
+        products({
+            url: 'https://fakestoreapi.com/products',
+            container: document.querySelector('.product-container'),
+            number_of_products: 4,
+        })
+
+       
+
+        
+
+
+
+    </script>
+    
+</body>
+</html>

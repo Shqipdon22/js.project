@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/output.css">
+</head>
+<body>
+    <header class=" dark:bg-gray-900 mx-auto py-5 flex flex-row px-8 border-b-2">
+        <section class="header w-11/12">     
+        </section>
+        <button id = "signOut" class="border rounded dark:bg-gray-900 text-white border-r-white py-1 w-1/12">Sign Out</button>
+    </header>
+    
+   
+    <footer class="footer"></footer>
+
+
+
+    <script type="module">
+
+        import Header from './components/Header.js'
+        import Footer from './components/Footer.js'
+
+
+        document.querySelector('.header').innerHTML = Header()
+        document.querySelector('.footer').innerHTML = Footer()
+
+        const signOutBtn = document.querySelector('#signOut')
+
+        signOutBtn.addEventListener('click',function(){
+            localStorage.removeItem('is_loggedin')
+            window.location.href = 'http://127.0.0.1:5501/index.html'
+        })
+
+
+
+    </script>
+
+</body>
+
+
+
+</html>
